@@ -37,8 +37,10 @@
 
 /* Real-time globe replaces the raster hero background. */
 .home-page .landing{background:#a1def2;color:#092d50}
-.globe-scene{position:absolute;right:-2%;top:11%;width:64%;height:83%;pointer-events:none;z-index:-1}
-.globe-scene canvas{display:block;width:100%;height:100%}
+.globe-scene{position:absolute;right:-2%;top:11%;width:64%;height:83%;pointer-events:auto;z-index:0}
+.globe-scene canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none}
+.globe-scene canvas.dragging{cursor:grabbing}
+.home-page footer{z-index:1}
 .globe-scene canvas[hidden],.globe-fallback[hidden]{display:none}
 .globe-fallback{position:absolute;inset:12%;aspect-ratio:1;border-radius:50%;border:1px solid #398bb7;background:radial-gradient(circle at 35% 28%,#61c0e3,#17628f 65%,#0b3c66);box-shadow:0 0 40px #cef8ff88}
 .home-page .hero{z-index:1}
