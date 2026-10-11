@@ -16,7 +16,7 @@ async function createGlobe() {
   const world = new THREE.Group();
   world.rotation.z = -0.12;
   scene.add(world);
-  world.add(new THREE.Mesh(new THREE.SphereGeometry(1.65, 64, 40), new THREE.MeshPhongMaterial({color: 0x146394, transparent: true, opacity: 0.92, shininess: 48})));
+  world.add(new THREE.Mesh(new THREE.SphereGeometry(1.65, 64, 40), new THREE.MeshPhongMaterial({color: 0x146394, shininess: 48})));
   scene.add(new THREE.HemisphereLight(0xd8faff, 0x092d59, 2.1));
   const light = new THREE.DirectionalLight(0xffffff, 2.8);
   light.position.set(-3, 4, 5); scene.add(light);
@@ -33,13 +33,19 @@ async function createGlobe() {
   });
   const geography = new THREE.BufferGeometry();
   geography.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  // Keep a centred full-globe bound as continents rotate through the view.
+  geography.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1.675);
   const pointsMaterial = new THREE.ShaderMaterial({
     uniforms: {color: {value: new THREE.Color(0xc3f7ff)}},
     vertexShader: 'void main(){vec4 p=modelViewMatrix*vec4(position,1.0);gl_Position=projectionMatrix*p;gl_PointSize=clamp(10.0/-p.z,1.3,4.0);}',
     fragmentShader: 'uniform vec3 color; void main(){float d=length(gl_PointCoord-0.5);if(d>0.5)discard;gl_FragColor=vec4(color,1.0-smoothstep(0.25,0.5,d));}',
     transparent: true, depthWrite: false
   });
-  world.add(new THREE.Points(geography, pointsMaterial));
+  const continents = new THREE.Points(geography, pointsMaterial);
+  // Render the land after the opaque ocean, retaining depth testing for the far side.
+  continents.renderOrder = 1;
+  continents.frustumCulled = false;
+  world.add(continents);
   // Atmospheric rim is real 3D shading, independent of the old raster background.
   world.add(new THREE.Mesh(new THREE.SphereGeometry(1.71, 48, 32), new THREE.ShaderMaterial({
     vertexShader: 'varying vec3 n;varying vec3 v;void main(){vec4 p=modelViewMatrix*vec4(position,1.0);n=normalize(normalMatrix*normal);v=normalize(-p.xyz);gl_Position=projectionMatrix*p;}',
