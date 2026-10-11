@@ -98,3 +98,7 @@
 .story-tags span{background:#ffffff12;border-color:#ffffff35}
 .home-document *{scrollbar-color:#447694 #06172a}
 .home-document::-webkit-scrollbar-track{background:#06172a}.home-document::-webkit-scrollbar-thumb{border-color:#06172a}
+
+/* Keep the first story graphic compact within its existing column. */
+.story-section[aria-labelledby="launch-title"] .story-art img{width:55%;max-width:340px;margin-inline:auto}
+@media(max-width:600px){.story-section[aria-labelledby="launch-title"] .story-art img{width:60%;max-width:230px}}
