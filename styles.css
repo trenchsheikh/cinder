@@ -81,3 +81,20 @@
 @media(max-width:960px){.story-section{gap:24px;min-height:560px;padding:65px 0}.story-copy h2{font-size:42px}.story-copy>p:not(.eyebrow):not(.story-note):not(.feature-status){font-size:16px}}
 @media(max-width:600px){.story-content{padding:24px 24px 0}.story-section{grid-template-columns:1fr;gap:24px;padding:55px 0;min-height:0}.story-section .story-copy,.story-section.reverse .story-copy{order:1}.story-section .story-art,.story-section.reverse .story-art{order:2}.story-art{max-width:460px;width:100%;margin:auto}.story-copy h2{font-size:40px}.home-page .hero-footer{gap:9px;padding:14px 16px 20px;font-size:9px;letter-spacing:.3px}.scroll-cue{margin-left:8px;font-size:10px}.closing-cta{padding:60px 0 70px}.home-page .site-footer p{display:none}.home-page .site-footer{gap:18px}.globe-scene canvas{touch-action:pan-y}}
 @media(prefers-reduced-motion:reduce){.home-document{scroll-behavior:auto}}
+
+/* Spark dark-blue colour theme. */
+.home-document,.home-page,.home-page .landing{background:#06172a;color:#fff;color-scheme:dark}
+.story-content{background:linear-gradient(#06172a,#0b2139 42%,#071a30)}
+.home-page .brand img,.site-footer img{filter:none;opacity:1}
+.home-page .intro,.home-page .caption,.home-page .hero-footer,.home-page footer,.home-page footer b,.eyebrow,.story-copy>p:not(.eyebrow):not(.story-note):not(.feature-status),.destination-list dt,.destination-list dd,.home-page .site-footer,.story-note,.feature-status{color:#fff}
+.home-page .header nav{background:linear-gradient(135deg,#ffffff24,#a5d5f312);border-color:#ffffff45}
+.home-page .header nav a,.home-page .header nav button{color:#fff;border-right-color:#ffffff25}
+.home-page .header nav a:hover,.home-page .header nav button:hover{background:#ffffff20}
+.home-page .header .wallet{background:linear-gradient(135deg,#ffffff28,#a5d5f318);color:#fff;border-color:#ffffff55}
+.home-page .secondary{background:#ffffff16;color:#fff;border-color:#ffffff55}
+.home-page .secondary:hover{background:#ffffff25}
+.home-page .story-button{background:#ffffff18;color:#fff;border-color:#ffffff55}
+.home-page .story-button:hover{background:#ffffff28}
+.story-tags span{background:#ffffff12;border-color:#ffffff35}
+.home-document *{scrollbar-color:#447694 #06172a}
+.home-document::-webkit-scrollbar-track{background:#06172a}.home-document::-webkit-scrollbar-thumb{border-color:#06172a}
