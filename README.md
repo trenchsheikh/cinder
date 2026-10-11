@@ -12,6 +12,14 @@ npm run dev
 
 Open http://localhost:5173. For a production bundle, run `npm run build`; serve `dist/` on any static host. `npm start` previews that bundle locally.
 
+## Vercel deployment
+
+The repository's `vercel.json` explicitly selects the static framework, runs `npm run build` and publishes `dist/`. Vercel serves the generated HTML, CSS, JavaScript, images and fonts directly; `npm start` is only a local preview command, not a production server on Vercel.
+
+Connect this repository with production branch `main` and leave the Root Directory at the repository root. After merging changes, confirm the production deployment points to the newest `main` commit. The landing page is `/`; the terminal entry is `/terminal.html?view=explore` (or `launch`, `portfolio`, `rewards`). No environment variables are needed for this landing release.
+
+If an older deployment is still shown, check that the domain is assigned to this project and that the newest deployment is promoted to Production. A successful preview deployment does not update the production domain.
+
 ## Scope
 
 - Landing page with responsive navigation, Open terminal CTA and How it works dialog.
