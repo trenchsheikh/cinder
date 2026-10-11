@@ -1,5 +1,3 @@
-const how = document.querySelector('#how');
-document.querySelectorAll('[data-how]').forEach(button => button.addEventListener('click', () => how?.showModal()));
 document.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', () => button.closest('dialog').close()));
 document.querySelectorAll('dialog').forEach(dialog => dialog.addEventListener('click', event => { if(event.target === dialog){ const r=dialog.getBoundingClientRect(); if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close(); } }));
 const walletButton = document.querySelector('[data-wallet]');
