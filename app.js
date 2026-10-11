@@ -23,3 +23,17 @@ const provider=window.phantom?.solana;
 provider?.on?.('accountChanged',publicKey=>walletState(publicKey?.toString()||''));
 provider?.on?.('disconnect',()=>walletState());
 if(provider?.isConnected&&provider.publicKey)walletState(provider.publicKey.toString());
+
+// Terminal navigation requires a wallet connection, except Discover.
+document.querySelectorAll('.terminal-header nav a:not([data-tab="explore"])').forEach(link=>{
+ link.addEventListener('click',async event=>{
+  event.preventDefault();
+  if(link.dataset.connecting)return;
+  link.dataset.connecting='true';
+  link.setAttribute('aria-busy','true');
+  try{
+   const connected=await window.sparkWallet.connect();
+   if(connected)window.location.assign(link.href);
+  }finally{delete link.dataset.connecting;link.removeAttribute('aria-busy');}
+ });
+});
