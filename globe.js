@@ -49,8 +49,8 @@ async function createGlobe() {
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
   })));
   const sparks = [];
-  const trailLength = 36;
-  for(let i=0;i<9;i++) {
+  const trailLength = 64;
+  for(let i=0;i<3;i++) {
     const orbit = new THREE.Group();
     orbit.rotation.set(i*0.47+0.3, i*0.8, i*0.39);
     const radius = 1.94 + (i%3)*0.17;
@@ -65,26 +65,46 @@ async function createGlobe() {
     const head = new THREE.Mesh(new THREE.SphereGeometry(0.023,8,8),new THREE.MeshBasicMaterial({color:0xf0fdff}));orbit.add(head);
     scene.add(orbit);sparks.push({head,tailGeometry,radius,phase:i*1.8,speed:0.24+(i%4)*0.1});
   }
-  let frame=0, previous=0, elapsed=0, targetX=0, targetY=0;
+  let frame=0, previous=0, elapsed=0, targetX=0, targetY=0, dragX=0, dragY=0, dragging=null;
   function resize(){const {width,height}=host.getBoundingClientRect();if(!width||!height)return;renderer.setSize(width,height,false);camera.aspect=width/height;camera.position.z=camera.aspect<0.9?8.6:6.8;camera.updateProjectionMatrix();render();}
   function render(){renderer.render(scene,camera);}
   function draw(time=0){
     frame=0;
     const delta=previous?Math.min((time-previous)/1000,0.05):0;previous=time;
     if(!motion.matches)elapsed+=delta;
-    world.rotation.y=-0.5+elapsed*0.045;
-    world.rotation.x+=(targetY-world.rotation.x)*0.025;
+    world.rotation.y=-0.5+elapsed*0.018 + dragY;
+    world.rotation.x+=(targetY+dragX-world.rotation.x)*0.08;
     scene.rotation.y+=(targetX-scene.rotation.y)*0.025;
     for(const spark of sparks){
       const angle=spark.phase+elapsed*spark.speed;
       const p=spark.tailGeometry.attributes.position;
-      for(let j=0;j<trailLength;j++){const a=angle-(1-j/(trailLength-1))*0.35;p.setXYZ(j,Math.cos(a)*spark.radius,Math.sin(a)*spark.radius*0.83,0);}
+      for(let j=0;j<trailLength;j++){const a=angle-(1-j/(trailLength-1))*0.75;p.setXYZ(j,Math.cos(a)*spark.radius,Math.sin(a)*spark.radius*0.83,0);}
       p.needsUpdate=true;spark.head.position.set(Math.cos(angle)*spark.radius,Math.sin(angle)*spark.radius*0.83,0);
     }
     render();if(!disposed&&!motion.matches&&!document.hidden)frame=requestAnimationFrame(draw);
   }
   function restart(){if(frame)cancelAnimationFrame(frame);frame=0;previous=0;draw();}
-  function pointer(event){if(motion.matches)return;targetX=(event.clientX/innerWidth-0.5)*0.14;targetY=(event.clientY/innerHeight-0.5)*0.1;}
+  function pointer(event){
+    if(dragging?.id===event.pointerId){
+      dragY+=(event.clientX-dragging.x)*0.006;
+      dragX=THREE.MathUtils.clamp(dragX+(event.clientY-dragging.y)*0.006,-1.2,1.2);
+      dragging.x=event.clientX;dragging.y=event.clientY;
+    }else{
+      targetX=(event.clientX/innerWidth-0.5)*0.22;
+      targetY=(event.clientY/innerHeight-0.5)*0.14;
+    }
+    if(motion.matches){world.rotation.x=targetY+dragX;scene.rotation.y=targetX;draw();}
+  }
+  function startDrag(event){
+    if(event.button!==0)return;
+    dragging={id:event.pointerId,x:event.clientX,y:event.clientY};
+    canvas.setPointerCapture(event.pointerId);canvas.classList.add('dragging');
+  }
+  function endDrag(event){if(dragging?.id!==event.pointerId)return;dragging=null;canvas.classList.remove('dragging');if(canvas.hasPointerCapture(event.pointerId))canvas.releasePointerCapture(event.pointerId);}
+  canvas.addEventListener('pointerdown',startDrag);
+  canvas.addEventListener('pointerup',endDrag);
+  canvas.addEventListener('pointercancel',endDrag);
+  canvas.addEventListener('lostpointercapture',endDrag);
   const observer=new ResizeObserver(resize);observer.observe(host);
   document.addEventListener('visibilitychange',restart);motion.addEventListener('change',restart);window.addEventListener('pointermove',pointer,{passive:true});
   canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();if(frame)cancelAnimationFrame(frame);canvas.hidden=true;fallback.hidden=false;});
