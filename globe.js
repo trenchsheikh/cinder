@@ -20,8 +20,6 @@ async function createGlobe() {
   scene.add(new THREE.HemisphereLight(0xd8faff, 0x092d59, 2.1));
   const light = new THREE.DirectionalLight(0xffffff, 2.8);
   light.position.set(-3, 4, 5); scene.add(light);
-  const grid = new THREE.Mesh(new THREE.SphereGeometry(1.657, 40, 22), new THREE.MeshBasicMaterial({color: 0x73c9ef, wireframe: true, transparent: true, opacity: 0.08}));
-  world.add(grid);
   const landResponse = await fetch('/assets/land-points.json');
   if (!landResponse.ok) throw new Error('Globe geography unavailable');
   const land = await landResponse.json();
@@ -54,16 +52,17 @@ async function createGlobe() {
     const orbit = new THREE.Group();
     orbit.rotation.set(i*0.47+0.3, i*0.8, i*0.39);
     const radius = 1.94 + (i%3)*0.17;
-    const orbitPoints = Array.from({length:129}, (_,j)=> new THREE.Vector3(Math.cos(j/128*Math.PI*2)*radius, Math.sin(j/128*Math.PI*2)*radius*0.83, 0));
-    orbit.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(orbitPoints), new THREE.LineBasicMaterial({color:0x216b9a,transparent:true,opacity:0.13})));
     const tailGeometry = new THREE.BufferGeometry();
-    tailGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(trailLength*3),3));
+    tailGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(trailLength*3),3).setUsage(THREE.DynamicDrawUsage));
     const colors = new Float32Array(trailLength*3);
     for(let j=0;j<trailLength;j++){const strength=(j/(trailLength-1))**2;colors.set([0.15+strength*0.72,0.45+strength*0.53,0.65+strength*0.35],j*3);}
     tailGeometry.setAttribute('color',new THREE.BufferAttribute(colors,3));
-    orbit.add(new THREE.Line(tailGeometry,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:0.95})));
+    const trail = new THREE.Line(tailGeometry,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:0.95}));
+    // Vertices move around the full orbit; an initial cached bound would cull the moving trail.
+    trail.frustumCulled = false;
+    orbit.add(trail);
     const head = new THREE.Mesh(new THREE.SphereGeometry(0.023,8,8),new THREE.MeshBasicMaterial({color:0xf0fdff}));orbit.add(head);
-    scene.add(orbit);sparks.push({head,tailGeometry,radius,phase:i*1.8,speed:0.24+(i%4)*0.1});
+    scene.add(orbit);sparks.push({head,tailGeometry,radius,phase:i*1.8,speed:1.1+i*0.22});
   }
   let frame=0, previous=0, elapsed=0, targetX=0, targetY=0, dragX=0, dragY=0, dragging=null;
   function resize(){const {width,height}=host.getBoundingClientRect();if(!width||!height)return;renderer.setSize(width,height,false);camera.aspect=width/height;camera.position.z=camera.aspect<0.9?8.6:6.8;camera.updateProjectionMatrix();render();}
