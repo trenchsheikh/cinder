@@ -20,3 +20,4 @@
 .terminal-page dialog{background:#0d2742;color:#fff;border-color:#ffffff35}.terminal-page dialog .close,.terminal-page dialog dd{color:#fff}.terminal-page dialog .secondary{background:#173c59;color:#fff}
 .terminal-page *{scrollbar-color:#447694 #06172a}
 .terminal-page .token-table th,.terminal-page .token-table td a{color:#fff}
+.trade-row-actions,.trade-tabs{display:flex;gap:8px}.trade-row-actions button,.trade-tabs button{border:1px solid #ffffff35;border-radius:6px;padding:8px 18px;font-size:12px;color:#fff;background:#173c59}.trade-row-actions .trade-buy{background:#174a70}.trade-row-actions .trade-sell{background:#57374d}.row-ca{display:block;font-size:10px;color:#a5c9e4;margin-top:7px;overflow-wrap:anywhere;max-width:340px}.trade-tabs{margin:20px 0}.trade-tabs [aria-pressed=true]{background:#225c86;border-color:#95daff}.trade-ca{font-size:12px!important;overflow-wrap:anywhere;color:#c3def2!important}
