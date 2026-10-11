@@ -19,7 +19,7 @@ function renderCards(target,rewards=false){const listings=readListings();target.
 const requested=new URLSearchParams(location.search).get('view')||'explore';
 const view=['explore','launch','portfolio','rewards'].includes(requested)?requested:'explore';
 document.querySelector(`[data-tab="${view}"]`)?.setAttribute('aria-current','page');
-if(view!=='launch')document.querySelector('#launch-view').hidden=true;
+document.querySelector('#launch-view').hidden=view!=='launch';
 if(view==='explore'){
  document.querySelector('#discover-view').hidden=false;
  document.querySelector('#view-title').textContent='Discover your next spark.';
@@ -39,3 +39,6 @@ function renderDiscovery(query=''){
  if(!filtered.length){const row=document.createElement('tr'),cell=document.createElement('td');cell.colSpan=5;cell.className='empty-state';cell.textContent=query?'No saved tokens match. Paste a Solana mint to open its market.':'Search a token mint or browse Pump.fun to discover live markets.';row.append(cell);target.append(row);}
 }
 const search=document.querySelector('#search-input');search.addEventListener('input',()=>renderDiscovery(search.value.trim()));document.querySelector('#token-search').addEventListener('submit',event=>{event.preventDefault();renderDiscovery(search.value.trim());document.querySelector('#search-message').textContent=mintPattern.test(search.value.trim())?'Use the market link below to view and trade this token.':'';});renderDiscovery();
+
+// Reveal only after the requested view and its content have been prepared.
+document.querySelector('#terminal-main').hidden=false;
