@@ -38,3 +38,7 @@ The landing page uses a light-blue background and a real Three.js globe with Nat
 ## Landing story
 
 The viewport hero is followed by responsive illustrated sections for planned Stock Coin pairing, token creation/discovery and proposed creator-fee destinations. Generated transparent graphics live in `public/assets/`. Anchor navigation scrolls smoothly, with reduced-motion support. Stock logos are illustrative; pairing and launch support remain in development.
+
+## Listing terminal
+
+The terminal includes token image upload and preview, token identity fields, creator/burn/holder destinations, SOL or stock-token mint selection, review, JSON export and device-local saved listings. It validates required fields and file type/size, stores optimised preview images, and safely renders listing text. Listing storage is browser-local; public listing, token creation, stock liquidity and reward execution need backend and on-chain integration. No wallet transaction is submitted by this form.
