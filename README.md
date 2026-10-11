@@ -1,6 +1,6 @@
-# Cinder
+# Spark
 
-Responsive landing page matching the approved navy and icy-blue Cinder concept. The header logo and orbital background are generated raster image assets, not CSS illustrations. Text, navigation and buttons are accessible HTML.
+Responsive landing page matching the approved navy and icy-blue Spark concept. The header logo and orbital background are generated raster image assets, not CSS illustrations. Text, navigation and buttons are accessible HTML.
 
 ## Run
 
@@ -29,4 +29,4 @@ If an older deployment is still shown, check that the domain is assigned to this
 
 ## Assets
 
-Generated from the approved Cinder mockup: `public/assets/cinder-background.webp` and `public/assets/cinder-logo.webp`. The logo uses a contrast filter and screen blending to remove its dark plate without redrawing the mark or lettering. DM Sans is self-hosted; its license is included alongside the font files.
+Generated from the approved Spark mockup: `public/assets/spark-background.webp` and `public/assets/spark-logo.png`. The Spark logo has a real alpha channel and renders without filters or blend modes. The regenerated 16:9 background uses aspect-preserving cover scaling; the source is 1672 × 941 pixels. DM Sans is self-hosted; its license is included alongside the font files.
