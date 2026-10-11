@@ -105,3 +105,5 @@
 
 /* Give the final stock-pairing graphic a little more breathing room. */
 .story-section[aria-labelledby="pair-title"] .story-art img{width:85%;margin-inline:auto}
+
+.x-link{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;color:#fff;border:1px solid #ffffff25;border-radius:7px;background:#ffffff06;transition:background .2s,border-color .2s}.x-link:hover{background:#ffffff16;border-color:#ffffff55}.x-link svg{display:block}.hero>.x-link{margin-top:18px}.site-footer .x-link{flex-shrink:0}
