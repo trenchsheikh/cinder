@@ -34,3 +34,7 @@ The transparent Spark logo and favicon are stored in `public/assets/`. The landi
 ## Animated globe
 
 The landing page uses a light-blue background and a real Three.js globe with Natural Earth land points, a smooth surface, atmospheric rim and three shooting-star beams. Drag the globe with a mouse or touch to rotate it; gentle pointer movement also shifts the view. Automatic rotation takes about six minutes per revolution. Three.js is pinned and served locally from the build output. Geography is prepared at build time using world-atlas and topojson-client; no external CDN or runtime map service is required. Natural Earth data is public domain. Automatic globe rotation respects reduced motion; the three shooting-star beams continuously animate while the page is visible. Rendering pauses in hidden tabs and caps resolution and displays a static fallback when WebGL is unavailable.
+
+## Landing story
+
+The viewport hero is followed by responsive illustrated sections for planned Stock Coin pairing, token creation/discovery and proposed creator-fee destinations. Generated transparent graphics live in `public/assets/`. Anchor navigation scrolls smoothly, with reduced-motion support. Stock logos are illustrative; pairing and launch support remain in development.
