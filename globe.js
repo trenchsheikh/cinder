@@ -57,7 +57,7 @@ async function createGlobe() {
   for(let i=0;i<3;i++) {
     const orbit = new THREE.Group();
     orbit.rotation.set(i*0.47+0.3, i*0.8, i*0.39);
-    const radius = 1.94 + (i%3)*0.17;
+    const radius = 1.78 + i*0.035;
     const tailGeometry = new THREE.BufferGeometry();
     tailGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(trailLength*3),3).setUsage(THREE.DynamicDrawUsage));
     const colors = new Float32Array(trailLength*3);
@@ -85,8 +85,8 @@ async function createGlobe() {
     for(const spark of sparks){
       const angle=spark.phase+sparkElapsed*spark.speed;
       const p=spark.tailGeometry.attributes.position;
-      for(let j=0;j<trailLength;j++){const a=angle-(1-j/(trailLength-1))*0.75;p.setXYZ(j,Math.cos(a)*spark.radius,Math.sin(a)*spark.radius*0.83,0);}
-      p.needsUpdate=true;spark.head.position.set(Math.cos(angle)*spark.radius,Math.sin(angle)*spark.radius*0.83,0);
+      for(let j=0;j<trailLength;j++){const a=angle-(1-j/(trailLength-1))*0.75;p.setXYZ(j,Math.cos(a)*spark.radius,Math.sin(a)*spark.radius,0);}
+      p.needsUpdate=true;spark.head.position.set(Math.cos(angle)*spark.radius,Math.sin(angle)*spark.radius,0);
     }
     render();if(!disposed&&!document.hidden)frame=requestAnimationFrame(draw);
   }
