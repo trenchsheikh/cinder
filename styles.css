@@ -102,3 +102,6 @@
 /* Keep the first story graphic compact within its existing column. */
 .story-section[aria-labelledby="launch-title"] .story-art img{width:55%;max-width:340px;margin-inline:auto}
 @media(max-width:600px){.story-section[aria-labelledby="launch-title"] .story-art img{width:60%;max-width:230px}}
+
+/* Give the final stock-pairing graphic a little more breathing room. */
+.story-section[aria-labelledby="pair-title"] .story-art img{width:85%;margin-inline:auto}
