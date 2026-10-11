@@ -1,10 +1,10 @@
 # Spark
 
-Responsive landing page matching the approved navy and icy-blue Spark concept. The header logo and orbital background are generated raster image assets, not CSS illustrations. Text, navigation and buttons are accessible HTML.
+Responsive Spark landing page with a light-blue background, a Three.js globe and orbiting sparks. The header logo is a generated transparent raster asset. Text, navigation and buttons are accessible HTML.
 
 ## Run
 
-Requires Node.js 20 or newer. No dependency installation is needed.
+Requires Node.js 20 or newer. Install dependencies with `npm ci` before running.
 
 ```sh
 npm run dev
@@ -29,4 +29,8 @@ If an older deployment is still shown, check that the domain is assigned to this
 
 ## Assets
 
-Generated from the approved Spark mockup: `public/assets/spark-background.webp` and `public/assets/spark-logo.png`. The Spark logo has a real alpha channel and renders without filters or blend modes. The regenerated 16:9 background uses aspect-preserving cover scaling; the source is 1672 × 941 pixels. DM Sans is self-hosted; its license is included alongside the font files.
+The transparent Spark logo and favicon are stored in `public/assets/`. The landing page recolours the logo for contrast on light blue. DM Sans is self-hosted; its license is included alongside the font files.
+
+## Animated globe
+
+The landing page uses a light-blue background and a real Three.js globe with Natural Earth land points, a subtle grid, atmospheric rim and orbital sparks. Three.js is pinned and served locally from the build output. Geography is prepared at build time using world-atlas and topojson-client; no external CDN or runtime map service is required. Natural Earth data is public domain. The animation respects reduced motion, pauses in hidden tabs, caps rendering resolution and displays a static fallback when WebGL is unavailable.
