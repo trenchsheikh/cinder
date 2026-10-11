@@ -30,7 +30,7 @@ if(view==='explore'){
  document.querySelector('#view-subtitle').textContent='Your saved listing configurations, organised in the Spark terminal.';
  renderCards(document.querySelector(rewards?'#rewards-grid':'#listing-grid'),rewards);
 }
-const sparkToken={name:'Spark',symbol:'SPARK',mint:'7sKr9Lx2vN5mQ8bR4tY6aC3dE9fG2hJ5kM8nPUMP',pair:'SOL',destination:'burn',placeholder:true,curveProgress:62.7};
+const sparkToken={name:'Spark',symbol:'SPARK',mint:'7sKr9Lx2vN5mQ8bR4tY6aC3dE9fG2hJ5kM8nPUMP',pair:'SOL',destination:'burn',placeholder:true,curveProgress:67.3};
 const tradeDialog=document.querySelector('#trade-dialog');
 function setTradeSide(side){document.querySelector('#trade-title').textContent=(side==='sell'?'Sell':'Buy')+' SPARK';document.querySelectorAll('[data-trade-side]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.tradeSide===side)));}
 function openSparkTrade(side){document.querySelector('#copy-spark-ca').textContent='Copy CA';setTradeSide(side);document.querySelector('#trade-ca').textContent='CA: '+sparkToken.mint;tradeDialog.showModal();}
